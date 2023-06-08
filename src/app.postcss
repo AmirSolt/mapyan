@@ -1,0 +1,15 @@
+/*place global styles here */
+html,
+body {
+	@apply h-full;
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+	.table tbody td {
+		@apply text-sm px-3 py-4 align-top whitespace-normal;
+	}
+}
