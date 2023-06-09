@@ -11,13 +11,19 @@ const supabase = ()=> createClient<Database>(
 )
 
 
-export function getSearch():Product[]{
+// npx supabase gen types typescript --project-id "elznvxsklkeoszuzoqpg" --schema public > ./src/lib/funcs/server/supaDB/index.ts
 
+
+
+export function getSearch(keyword:string):Product[]{
     return []
 }
 
 
-export function getProductInfo():ProductInfo{
+export function getProductInfo(asin:string):ProductInfo{
+
+
+    const key = structProductInfoKey(asin)
 
     return {
         desc: "",
@@ -26,7 +32,17 @@ export function getProductInfo():ProductInfo{
 }
 
 
-export function getComparisonPageData():{comparison:Comparison, products:Product[]}{
+export function getComparisonPageData(selectedAsins:string[]):{comparison:Comparison, products:Product[]}{
+
+    const key = structComparisonKey(selectedAsins)
+
+//     const { data, error } = await supabase
+//   .from('products')
+//   .select(`
+//     id,
+//     supplier:supplier_id ( name ),
+//     purchaser:purchaser_id ( name )
+//   `)
 
     return {
         comparison: {key:"", body:"", features:[]},
@@ -34,3 +50,20 @@ export function getComparisonPageData():{comparison:Comparison, products:Product
     }
 }
 
+
+
+
+function structProductKey(asin:string):string{
+    return asin
+}
+function structProductInfoKey(asin:string):string{
+    return asin
+}
+function structComparisonKey(asins:string[]):string{
+    const sortedAsins = asins.sort((one, two) => (one > two ? -1 : 1));
+    return sortedAsins.join('-')
+}
+function destructTableKey(keyTable:string):string[]{
+    const asins = keyTable.split("-")
+    return asins
+}

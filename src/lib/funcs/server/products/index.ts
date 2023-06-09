@@ -9,12 +9,12 @@ import * as supaDB from '$lib/funcs/server/supaDB/index'
 
 
 
-export function getSearch():Product[]{
-    return supaDB.getSearch();
+export function getSearch(keyword:string):Product[]{
+    return supaDB.getSearch(keyword);
 }
 
-export function getProductInfo():ProductInfo{
-    return supaDB.getProductInfo()
+export function getProductInfo(asin:string):ProductInfo{
+    return supaDB.getProductInfo(asin)
 }
 
 

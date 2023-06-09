@@ -41,10 +41,14 @@ enum Divider{
 // ========================================
 
 interface Comparison{
-	body: string | null
-	features: string[] | null
+	body: string
+	features: string[]
 	key: string
 }
 
-
+interface ComparisonCard{
+	feature: string
+	asins: string[]
+	reason: string
+}
 
