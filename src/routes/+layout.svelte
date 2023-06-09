@@ -6,14 +6,6 @@
 	import Header from '$lib/comp/general/Header.svelte';
 	import Footer from '$lib/comp/general/Footer.svelte';
 	
-	
-	// import { onMount } from 'svelte';
-	// import { loadUserCountry } from '$lib/utils/country';
-	// onMount(() => {
-	// 	loadUserCountry();
-	// });
-	
-	
 
 	// ============== Toasts =================
 	import { Toast } from '@skeletonlabs/skeleton';

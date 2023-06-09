@@ -19,23 +19,6 @@ interface ProductInfo {
   key: string
 }
 
-enum Price{
-	symbol="$",
-	currency="USD",
-}
-enum Affiliate{
-	code="mapyan-20"
-}
-enum Selection{
-	min=2,
-	max=3,
-}
-enum Divider{
-	feature="$",
-	asins="%",
-	reason="@",
-}
-
 
 
 // ========================================

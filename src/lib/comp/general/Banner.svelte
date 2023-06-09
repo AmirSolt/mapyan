@@ -4,12 +4,12 @@
 			<h1>
 				<span
 					class=" bg-gradient-to-r from-green-500 to-blue-400  box-decoration-clone bg-clip-text text-6xl font-bold text-transparent">
-					Compare Amazon Products
+					Compare Products
 				</span>
 			</h1>
 			<br>
 			<p class="text-3xl">
-				Generate a comparison table for all Amazon products, using AI.
+				Generate a comparison table for all products, using AI.
 			</p>
 		</div>
 		
