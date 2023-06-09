@@ -1,21 +1,18 @@
 
 
-import {getCompare} from '$lib/server/supabase/supaDB'
-import {getSBService} from '$lib/server/supabase/init'
+import { getComparisonPageData } from '$lib/funcs/server/comparisonDB/index.js';
 
 export const load = async ({params}) => {
     
     const {key} = params;
 
-
-
-    let sbService = getSBService()
-    let {tableData, chatResponse} = await getCompare(sbService, key)
+    const {comparison, products, productInfos} = getComparisonPageData(key)
 
     return{
-        tableKey:key,
-        tableData,
-        chatResponse
+        comparisonKey:key,
+        comparison,
+        products,
+        productInfos,
     }
 
 };
