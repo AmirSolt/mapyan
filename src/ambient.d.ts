@@ -1,23 +1,50 @@
 
 
-// ====== generate type ???
-// interface SearchProduct{
-// 	asin:string;
-// 	country:string;
-// 	title:string;
-// 	image:string;
-// 	brand:string;
-// 	link:string;
-// 	rating:number;
-// 	price:Price;
-// }
-// interface ProductInfo{
-// 	asin:string;
-// 	description:string;
-// }
 
-// interface Price{
-// 	symbol:string;
-// 	value:number;
-// 	currency:string;
-// }
+
+
+
+interface Product{
+	brand: string | null
+    image_url: string
+    key: string
+    price: number | null
+    rating: number | null
+    title: string
+    url: string | null
+}
+
+interface ProductInfo {
+  desc: string
+  key: string
+}
+
+enum Price{
+	symbol="$",
+	currency="USD",
+}
+enum Affiliate{
+	code="mapyan-20"
+}
+enum Selection{
+	min=2,
+	max=3,
+}
+enum Divider{
+	feature="$",
+	asins="%",
+	reason="@",
+}
+
+
+
+// ========================================
+
+interface Comparison{
+	body: string | null
+	features: string[] | null
+	key: string
+}
+
+
+
