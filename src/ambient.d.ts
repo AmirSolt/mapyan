@@ -24,8 +24,8 @@ interface ProductInfo {
 // ========================================
 
 interface Comparison{
-	body: string
-	features: string[]
+	body: string | null
+	features: string[] | null
 	key: string
 }
 

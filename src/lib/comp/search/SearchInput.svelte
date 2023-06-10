@@ -2,15 +2,20 @@
 <script lang="ts">
     import {Search} from 'lucide-svelte'
     import {goto} from '$app/navigation';
+    import LoadingAnim from '$lib/comp/general/loading/LoadingAnim.svelte';
+	import BarLoading from '$lib/comp/general/loading/BarLoading.svelte';
+	import LoadingContainer from '$lib/comp/general/loading/LoadingContainer.svelte';
         
     export let searchTerm = '';
     let searchInput = searchTerm
+    let isLoading:boolean = false;
   
 
     function searchForm(keyword:string) {
         if(keyword.length===0)
             return;
 
+        isLoading = true;
         goto(`/search/${keyword}`)
     }
 
@@ -29,3 +34,22 @@
         </div>
     </form>
 </div>    
+
+
+
+{#if isLoading}
+
+<LoadingContainer >
+    <LoadingAnim />
+    <br>
+    <BarLoading seconds={5}>
+        <br />
+        <div class="flex flex-col justify-center items-center text-center">
+            <br />
+            <p>We are working to improve the loading speed.</p>
+            <p>Thank you for being patient.</p>
+        </div>
+    </BarLoading>
+</LoadingContainer>
+
+{/if}

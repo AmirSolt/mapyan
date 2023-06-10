@@ -1,25 +1,27 @@
 
 <script lang="ts">
-	import { X } from 'lucide-svelte';
-	import ProductAvatar from '$lib/comp/general/product/ProductAvatar.svelte';
-	import { ProgressRadial } from '@skeletonlabs/skeleton';
-	import { selectedProducts, removeCompareProduct } from '$lib/utils/stores';
-    import { ProgressBar } from '@skeletonlabs/skeleton';
+
+	import LoadingAnim from '$lib/comp/general/loading/LoadingAnim.svelte';
+	import BarLoading from '$lib/comp/general/loading/BarLoading.svelte';
+	import LoadingContainer from '$lib/comp/general/loading/LoadingContainer.svelte';
+	import SelectionProgressLoading from './SelectionProgressLoading.svelte';
+	import SelectedProduct from './SelectedProduct.svelte';
+	import { selectedProducts } from '$lib/utils/stores';
 	import {goto} from '$app/navigation';
-	import {initToast} from '$lib/utils/toast'
+	import {toastError} from '$lib/utils/toast'
 	import {structComparisonKey} from '$lib/utils/keyMaker'
 	import {SelectionLimit} from "$lib/utils/config"
 
 	$: progressValue = ($selectedProducts.length / SelectionLimit.max) * 100;
 	$: barBg = $selectedProducts.length>0? 'variant-filled-surface' : '!bg-transparent'
-	let buttonLoading:boolean = false
+	let compareLoading:boolean = false
 	
 	
-	function goToTable() {
-		buttonLoading = true;
+	function goToCompare() {
+		compareLoading = true;
 		
 		if($selectedProducts.length<SelectionLimit.min || $selectedProducts.length>SelectionLimit.max){
-			initToast(`You atleast need to select ${SelectionLimit.min} products`)
+			toastError(`You atleast need to select ${SelectionLimit.min} products`, false)
 			return;
 		}
 
@@ -36,61 +38,48 @@
 
 
 
+{#if compareLoading}
+	<LoadingContainer >
+	<LoadingAnim />
+	<br>
+	<BarLoading seconds={5}>
+		<br />
+		<div class="flex flex-col justify-center items-center text-center">
+			<br />
+			<p>We are working to improve the loading speed.</p>
+			<p>Thank you for being patient.</p>
+		</div>
+	</BarLoading>
+	</LoadingContainer>
+{/if}
+
+
 
 <div class={ $selectedProducts.length>0? "sticky top-0 z-10" : ""} >
 
-	<div class="variant-soft rounded-lg">
-		<ProgressBar rounded="rounded-t-lg" class="rounded-none" meter="bg-primary-500" height="h-2" value={progressValue} />
-	</div>
+	<!-- Selection progress loading -->
+	<SelectionProgressLoading {progressValue} />
 	
 	<div class="card {barBg} p-2 md:p-4 rounded-t-none  flex flex-row justify-between items-center md:px-24">
 		
-		<div class="">
-			<div class="flex justify-center items-center h-16 md:h-20">
-
-				{#each Array(SelectionLimit.max) as _, i}
-
-					{#if i < $selectedProducts.length}
-						<button
-							id="compare-button"
-							class="relative m-2 md:m-4"
-							on:click={() => removeCompareProduct($selectedProducts[i])}
-						>
-							<!-- <img class="max-w-full max-h-full rounded-lg" src="{product.image}" alt="Thumbnail"> -->
-							<ProductAvatar imageUrl={$selectedProducts[i].image_url} size={"w-16 h-16 md:w-24 md:h-24"}  />
-							<div class="absolute z-10 right-0 top-0 variant-filled rounded-full drop-shadow-2xl">
-								<span>
-									<X />
-								</span>
-							</div>
-						</button>
-					{:else}
-
-						<button class="btn m-2 md:m-4 variant-ringed rounded-lg w-16 h-16 md:w-24 md:h-24"  disabled> - </button>
-
-					{/if}
-
-
-				{/each}
-
-
-			</div>
+		<!-- Products -->
+		<div class="flex justify-center items-center h-16 md:h-20">
+			{#each Array(SelectionLimit.max) as _, index}
+				<SelectedProduct {index} />
+			{/each}
 		</div>
 	
-
+		<!-- Button -->
 		<div class="w-1/4">
 			{#if $selectedProducts.length > 0}
-				<button class="btn variant-filled-primary w-full" on:click={goToTable}>
-					{#if !buttonLoading}
+				<button class="btn variant-filled-primary w-full" on:click={goToCompare}>
 					Compare	  
-					{:else}
-					<ProgressRadial  width="w-12" stroke={100} />
-					{/if}
 				</button>
 			{:else}
 				<button class="btn variant-ringed w-full"  disabled> - </button>
 			{/if}
 		</div>
+
 	</div>
 </div>
 

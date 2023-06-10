@@ -33,7 +33,7 @@ export function getProductInfo(asin:string):ProductInfo{
 
 
 export function getComparisonPageData(comparisonKey:string)
-:{comparison:Comparison, products:Product[], productInfos:ProductInfo[]}{
+:{comparison:Comparison, products:Product[], productInfos:ProductInfo[] | null}{
 
     const asins = keyMaker.destructComparisonKey(comparisonKey)
 

@@ -30,7 +30,11 @@
 
 
 	{#if products.length === 0}
-        <h3>No products found</h3>
+
+	<div class="flex justify-center items-center  w-full h-40">
+		<h1 class="text-2xl">No products found</h1>
+	</div>
+
 
 
 	{:else}
