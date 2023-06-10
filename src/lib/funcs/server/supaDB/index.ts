@@ -13,13 +13,14 @@ import { error } from '@sveltejs/kit';
 const supabase = ()=> createClient<Database>(
     PUBLIC_SUPABASE_URL,
     PRIVATE_SERVICE_ROLE_KEY_SUPABASE,
+    {auth:{persistSession:false}}
 )
 
 
 
 
 
-export async function getSearch(keyword:string):Promise<Product[]>{
+export async function getSearch(keyword:string):Promise<Product[] | null>{
 
     const {data, error:err} = await supabase()
         .from('products')
@@ -29,16 +30,15 @@ export async function getSearch(keyword:string):Promise<Product[]>{
         config:"english"})
 
     if(err){
-        throw new Error(`Failed to search SupaDB: ${err}`)
+        console.log(`Failed to search SupaDB: ${err.message}`)
+        return null
     }
     
-
-
     return data
 }
 
 
-export async function getProductInfo(asin:string):Promise<ProductInfo>{
+export async function getProductInfo(asin:string):Promise<ProductInfo | null>{
 
 
     const key = keyMaker.structProductInfoKey(asin)
@@ -50,28 +50,32 @@ export async function getProductInfo(asin:string):Promise<ProductInfo>{
     .single()
 
     if(err){
-        throw new Error(`Failed to getProductInfo SupaDB: ${err}`)
+        console.log(`Failed to getProductInfo SupaDB: ${err.message}`)
+        return null
     }
+
 
     return data
 }
 
 
 export async function getComparisonPageData(comparisonKey:string)
-:Promise<{comparison:Comparison, products:Product[], productInfos:ProductInfo[] | null}>{
+:Promise<{comparison:Comparison, products:Product[], productInfos:ProductInfo[] | null}| null>{
 
     const asins = keyMaker.destructComparisonKey(comparisonKey)
 
     const { data, error:err } = await supabase()
     .rpc('get_comparison_page_data', 
-        { comparisonkey, asins })
+        { comparisonkey:comparisonKey, asins })
     
 
     if(err){
-        throw new Error(`Failed to getComparisonPageData SupaDB: ${err}`)
+        console.log(`Failed to getComparisonPageData SupaDB: ${err.message}`)
+        return null
     }
 
     // convert
+    console.log(data)
 
 
     return data
@@ -90,7 +94,7 @@ export async function saveComparison(comparison:Comparison)
     
 
     if(err){
-        console.log(`Failed to saveComparison SupaDB: ${err}`)
+        console.log(`Failed to saveComparison SupaDB: ${err.message}`)
         return false
     }
 

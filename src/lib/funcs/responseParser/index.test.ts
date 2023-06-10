@@ -5,14 +5,14 @@ import * as parser from "./index"
 
 
 
-describe("Parse feature options response", () => {
+// describe("Parse feature options response", () => {
 
 	
     
-});
+// });
 
-describe("Parse comparison response", () => {
+// describe("Parse comparison response", () => {
 
-	
     
-});
+    
+// });

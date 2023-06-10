@@ -6,7 +6,17 @@ export const load = async ({params}) => {
     
     const {key} = params;
 
-    const {comparison, products, productInfos} = await getComparisonPageData(key)
+    let comparison:Comparison|null = null
+    let products:Product[] | null = null
+    let productInfos:ProductInfo[] | null = null
+
+    const result = await getComparisonPageData(key)
+
+    if(result){
+        comparison = result.comparison
+        products = result.products
+        productInfos = result.productInfos
+    }
 
     return{
         comparisonKey:key,

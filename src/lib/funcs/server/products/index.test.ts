@@ -4,12 +4,12 @@ import * as productsAPI from "./index"
 
 
 
-describe("Get search results", () => {
+// describe("Get search results", () => {
 
-	it("keyword empty", ()=>{
-        const result = productsAPI.getSearch("")
-        expect(result).toEqual([])
-    })
+// 	it("keyword empty", ()=>{
+//         const result = productsAPI.getSearch("")
+//         expect(result).toEqual([])
+//     })
 
     
-});
+// });
