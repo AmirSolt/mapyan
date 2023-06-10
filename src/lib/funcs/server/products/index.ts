@@ -9,11 +9,11 @@ import * as supaDB from '$lib/funcs/server/supaDB/index'
 
 
 
-export function getSearch(keyword:string):Product[]{
+export async function getSearch(keyword:string):Promise<Product[]>{
     return supaDB.getSearch(keyword);
 }
 
-export function getProductInfo(asin:string):ProductInfo{
+export async function getProductInfo(asin:string):Promise<ProductInfo>{
     return supaDB.getProductInfo(asin)
 }
 
