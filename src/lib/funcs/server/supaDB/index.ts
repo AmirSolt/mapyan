@@ -21,65 +21,47 @@ const supabase = ()=> createClient<Database>(
 
 
 export async function getSearch(keyword:string):Promise<Product[] | null>{
-
     const {data, error:err} = await supabase()
-        .from('products')
+        .from('product')
         .select('brand,image_url,key,price,rating,title,url')
         .textSearch('title', keyword,
         {type:"websearch",
         config:"english"})
 
     if(err){
-        console.log(`Failed to search SupaDB: ${err.message}`)
+        console.log(`Failed to getSearch SupaDB: ${err.message}`)
         return null
     }
-    
     return data
 }
 
 
-export async function getProductInfo(asin:string):Promise<ProductInfo | null>{
-
-
-    const key = keyMaker.structProductInfoKey(asin)
-
-    const {data, error:err} = await supabase()
-    .from('product_infos')
-    .select('description, key')
-    .eq('key',asin)
-    .single()
-
-    if(err){
-        console.log(`Failed to getProductInfo SupaDB: ${err.message}`)
-        return null
-    }
-
-
-    return data
-}
 
 
 export async function getComparisonPageData(comparisonKey:string)
-:Promise<{comparison:Comparison, products:Product[], productInfos:ProductInfo[] | null}| null>{
+:Promise<{comparison:Comparison | null, products:Product[]} | null>{
 
     const asins = keyMaker.destructComparisonKey(comparisonKey)
 
-    const { data, error:err } = await supabase()
-    .rpc('get_comparison_page_data', 
-        { comparisonkey:comparisonKey, asins })
-    
 
-    if(err){
-        console.log(`Failed to getComparisonPageData SupaDB: ${err.message}`)
+    let result = await Promise.all([getProducts(asins), getComparison(comparisonKey)])
+
+    let products:Product[] | null = result[0]
+    let comparison:Comparison | null = result[1]
+
+    if(!products){
+        console.log(`Failed to getComparisonPageData fetch`)
         return null
     }
 
-    // convert
-    console.log(data)
 
 
-    return data
+    return {products, comparison}
 }
+
+
+
+
 
 
 export async function saveComparison(comparison:Comparison)
@@ -104,5 +86,63 @@ export async function saveComparison(comparison:Comparison)
 
 
 
+async function getComparison(comparisonKey:string):Promise<Comparison | null>{
+    const {data, error:err} = await supabase()
+    .from('comparison')
+    .select('body, key, features')
+    .eq('key',comparisonKey)
+    .single()
+
+    if(err){
+        console.log(`Failed to getComparison SupaDB: ${err.message}`)
+        return null
+    }
+    return data
+}
+
+async function getProducts(asins:string[]):Promise<Product[] | null>{
+    const keys = asins.map(asin=>keyMaker.structProductKey(asin))
+    const {data, error:err} = await supabase()
+    .from('product')
+    .select('brand,image_url,key,price,rating,title,url,productInfo(description, key)')
+    .in('key',keys)
+
+    if(err){
+        console.log(`Failed to getProducts SupaDB: ${err.message}`)
+        return null
+    }
+    return data
+}
 
 
+async function getProduct(asin:string):Promise<Product | null>{
+    const key = keyMaker.structProductKey(asin)
+    const {data, error:err} = await supabase()
+    .from('product')
+    .select('brand,image_url,key,price,rating,title,url,productInfo(description, key)')
+    .eq('key',key)
+    .single()
+
+    if(err){
+        console.log(`Failed to getProduct SupaDB: ${err.message}`)
+        return null
+    }
+    return data
+}
+
+
+
+async function getProductInfo(asin:string):Promise<ProductInfo | null>{
+    const key = keyMaker.structProductInfoKey(asin)
+    const {data, error:err} = await supabase()
+    .from('productInfo')
+    .select('description, key')
+    .eq('key',key)
+    .single()
+
+    if(err){
+        console.log(`Failed to getProductInfo SupaDB: ${err.message}`)
+        return null
+    }
+    return data
+}

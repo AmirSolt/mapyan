@@ -12,6 +12,7 @@ interface Product{
   rating: number | null
   title: string
   url: string | null
+  productInfo?: ProductInfo
 }
 
 interface ProductInfo {

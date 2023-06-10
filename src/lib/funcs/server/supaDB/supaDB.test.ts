@@ -40,7 +40,7 @@ describe("Get getComparisonPageData", () => {
 
     it("comparisonKey B0791Y1WSQ-B07D29QNMJ", async ()=>{
         const result = await supaDB.getComparisonPageData("B0791Y1WSQ-B07D29QNMJ")
-        expect(Boolean(result)).equal(false)
+        expect(result?.comparison?.body?.length).above(5)
     })
     
 });

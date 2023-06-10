@@ -5,12 +5,7 @@
     export let productInfos:ProductInfo[] | null = null;
 
 
-    // Need ProductInfo to generate features
-	if (!productInfos) {
-		const message = 'Could not find products!';
-        toastError(message)
-	}
-
+    
 
     // async request for features from comparer
 

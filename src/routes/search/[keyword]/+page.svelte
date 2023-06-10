@@ -8,7 +8,7 @@
 
 
     // Need ProductInfo to generate features
-	if (!products) {
+	if (products === null) {
 		const message = 'Sorry, could not get the results!';
         toastError(message)
 	}

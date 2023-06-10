@@ -6,7 +6,7 @@
 
 
 	export let data;
-	let { comparisonKey, comparison, products, productInfos } = data;
+	let { comparisonKey, comparison, products } = data;
 
 	// Need ProductInfo to generate features
 	if (!comparison || !products) {
@@ -19,12 +19,12 @@
 
 {#if !comparison?.features}
 
-	<OptionFeatures products={products??[]} {productInfos} />
+	<OptionFeatures products={products??[]} />
 
 {:else}
 
 	<CompareTable products={products??[]} />
-	<ComparisonGrid {comparison} products={products??[]} productInfos={productInfos??[]} />
+	<ComparisonGrid {comparison} products={products??[]} />
 
 
 {/if}

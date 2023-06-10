@@ -15,14 +15,12 @@ export const load = async ({params}) => {
     if(result){
         comparison = result.comparison
         products = result.products
-        productInfos = result.productInfos
     }
 
     return{
         comparisonKey:key,
         comparison,
         products,
-        productInfos,
     }
 
 };
