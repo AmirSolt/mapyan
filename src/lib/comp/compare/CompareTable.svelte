@@ -13,11 +13,11 @@
 	<table class="table table-hover table-compact table-auto ">
 			<thead>
 				<tr>
-					<th class="">Product</th>
-					<th class="">Title</th>
-					<th class="">Brand</th>
-					<th class="">Ratings</th>
-					<th class="">Price</th>
+					<th class="text-center">Product</th>
+					<th class="text-center">Title</th>
+					<th class="text-center">Brand</th>
+					<th class="text-center">Ratings</th>
+					<th class="text-center">Price</th>
 				</tr>
 			</thead>
 		<tbody>
@@ -30,12 +30,12 @@
 					}
 				<tr>
 						<td class="text-center">
-							<a class="flex justify-center items-center text-center" href={product.url} target="_blank" rel="noopener">
+							<a class="flex justify-center items-center" href={product.url} target="_blank" rel="noopener">
 								<ProductAvatar imageUrl={product.image_url} size={'w-24 h-24 md:w-32 md:h-32'} />
 							</a>
 						</td>
 						<td class="text-center">
-							<a class="flex justify-center items-center text-center" href={product.url} target="_blank" rel="noopener">
+							<a class="" href={product.url} target="_blank" rel="noopener">
 								<span>
 									{truncate(product.title, 25)}
 								</span>
@@ -49,8 +49,8 @@
 							</div>
 						</td>
 						<td class="text-center">
-							<div class="row flex flex-col justify-center items-center">
-								<StarRating rating={product.rating} starSize={4} />
+							<div class="">
+								<StarRating rating={product.rating} starSize={5} />
 							</div>
 						</td>
 						<td class="text-center">

@@ -130,12 +130,12 @@ async function getOpenAIModeration(messages:ChatCompletionRequestMessage[]):Prom
         },
         method: 'POST',
         body: JSON.stringify({
-            input: messages
+            input: JSON.stringify(messages)
         })
     })
     if (!moderationRes.ok) {
         const err = await moderationRes.json()
-        console.log(`oderation req failed ${err.error.message}`)
+        console.log(`Moderation req failed ${err.error.message}`)
         return false
     }
 

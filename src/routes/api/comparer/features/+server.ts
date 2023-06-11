@@ -12,7 +12,13 @@ export const POST = async ({request}) => {
 
 
     let streamFunction = await AI.createOptionFeaturesStream(products)
+    if(!streamFunction){
+        return new Response("AI response Failed",{status:400})
+    }
     let response = await streamFunction()
+
+
+
     
     return new Response(response.body, {
         headers: {

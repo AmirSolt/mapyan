@@ -1,120 +1,134 @@
-import * as AI from "$lib/funcs/server/AI/index"
 import { SSE } from 'sse.js';
-import {toastError} from '$lib/utils/toast'
 
-export async function createOptionFeatures(products:Product[]):string{
-    let streamFunc =  AI.createOptionFeaturesStream(products)
 
-    let response = await streamFunc()
 
-    
 
+
+
+
+export function createOptionFeaturesStream(products: Product[], newContentCallback:Function=()=>{}, overCallback:Function=()=>{}, errorCallback:Function=()=>{}): SSE | null {
+	try{
+		return getAIResponse(products, null, newContentCallback, overCallback, errorCallback)
+	}catch(err){
+		console.log(err)
+		return null
+	}
 }
 
-export function createComparison(products:Product[], selectedFeatures:string[]):string{
-    let streamFunc =  AI.createComparisonStream(products, selectedFeatures)
-}
+export function createComparisonStream(products: Product[], selectedFeatures: string[], newContentCallback: Function=()=>{}, overCallback: Function=()=>{}, errorCallback: Function=()=>{}): SSE|null {
+	
+	try{
+		return getAIResponse(products, selectedFeatures, newContentCallback, overCallback, errorCallback)
+	}catch(err){
+		console.log(err)
+		return null
+	}
 
-
-
-
-
-
-async function getChatResponse(productInfos: ProductInfo[]) {
-    function handleError<T>(err: T) {
-        chatResponse = 'Something went wrong!';
-        console.error(err);
-    }
-
-    const eventSource = new SSE('/api/chat', {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        payload: JSON.stringify({ productInfos })
-    });
-
-    eventSource.addEventListener('error', handleError);
-    eventSource.addEventListener('message', (e) => {
-        try {
-            if (e.data === '[DONE]') {
-                saveCompare();
-                isStreaming = false;
-                return;
-            }
-
-            const completionResponse = JSON.parse(e.data);
-            const [{ delta }] = completionResponse.choices;
-
-            if (delta.content) {
-                chatResponse = (chatResponse ?? '') + delta.content;
-            }
-        } catch (err) {
-            handleError(err);
-        }
-    });
-    eventSource.stream();
 }
 
 
 
+function getAIResponse(products: Product[], selectedFeatures: string[] | null, newContentCallback: Function, overCallback: Function, errorCallback: Function): SSE  {
 
 
-async function saveCompare() {
-    const response = await fetch('/api/db/save-compare', {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            tableKey,
-            tableData,
-            chatResponse
-        })
-    });
+	let comparerSlug: string = selectedFeatures === null ? "features" : "comparison";
 
-    if (!response.ok) {
-        const data = await response.json();
-        toastError(data.message, true)
-    }
+	function handleError<T>(err: T) {
+		errorCallback(err)
+	}
+
+	const eventSource = new SSE(`/api/comparer/${comparerSlug}`, {
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		payload: JSON.stringify({
+			products,
+			selectedFeatures
+		})
+	})
+
+	eventSource.addEventListener('error', handleError)
+	eventSource.addEventListener('message', (e) => {
+		try {
+			if (e.data === '[DONE]') {
+				overCallback()
+				return
+			}
+
+			const completionResponse = JSON.parse(e.data)
+			const [{ delta }] = completionResponse.choices
+
+			if (delta.content) {
+				newContentCallback(delta.content)
+			}
+		} catch (err) {
+			handleError(err)
+		}
+	})
+
+	// eventSource.stream()
+	return eventSource
 }
 
 
 
-async function getAIResponse(productInfos:ProductInfo[]){
+// async function getChatResponse(productInfos: ProductInfo[]) {
+//     function handleError<T>(err: T) {
+//         chatResponse = 'Something went wrong!';
+//         console.error(err);
+//     }
 
-  let AIResponse = ""
+//     const eventSource = new SSE('/api/chat', {
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         payload: JSON.stringify({ productInfos })
+//     });
 
-  function handleError<T>(err: T) {
-    AIResponse = "Something went wrong!"
-    console.error(err)
-  }
+//     eventSource.addEventListener('error', handleError);
+//     eventSource.addEventListener('message', (e) => {
+//         try {
+//             if (e.data === '[DONE]') {
+//                 saveCompare();
+//                 isStreaming = false;
+//                 return;
+//             }
 
-  const eventSource = new SSE('/api/chat', {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    payload: JSON.stringify({ productInfos})
-  })
+//             const completionResponse = JSON.parse(e.data);
+//             const [{ delta }] = completionResponse.choices;
 
-  eventSource.addEventListener('error', handleError)
-  eventSource.addEventListener('message', (e) => {
-    try {
-      if (e.data === '[DONE]') {
-        saveCompare()
-        isStreaming = false
-        return
-      }
-      
-      const completionResponse = JSON.parse(e.data)
-      const [{ delta }] = completionResponse.choices
-      
-      if (delta.content) {
-        chatResponse = (chatResponse ?? '') + delta.content
+//             if (delta.content) {
+//                 chatResponse = (chatResponse ?? '') + delta.content;
+//             }
+//         } catch (err) {
+//             handleError(err);
+//         }
+//     });
+//     eventSource.stream();
+// }
 
-      }
-    } catch (err) {
-      handleError(err)
-    }
-  })
-  eventSource.stream()
-}
+
+
+
+
+// async function saveCompare() {
+//     const response = await fetch('/api/db/save-compare', {
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         method: 'POST',
+//         body: JSON.stringify({
+//             tableKey,
+//             tableData,
+//             chatResponse
+//         })
+//     });
+
+//     if (!response.ok) {
+//         const data = await response.json();
+//         toastError(data.message, true)
+//     }
+// }
+
+
+

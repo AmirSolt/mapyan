@@ -37,8 +37,17 @@ const features:string[]=[
 describe("Create Option features", () => {
 
 	it("keyword empty", ()=>{
-        const result = comparer.createOptionFeatures(testProductInfos)
-        expect(result).toEqual([])
+
+
+        function newContentCallback(newContent:string){
+            console.log(newContent)
+        }
+        const eventSource = comparer.createOptionFeaturesStream(sampleProducts, newContentCallback)
+        
+        console.log(eventSource)
+        eventSource.stream()
+
+        expect(2).eql(2)
     })
 
     

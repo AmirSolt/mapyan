@@ -6,14 +6,14 @@ export const load = async ({params}) => {
     
     const {key} = params;
 
-    let comparison:Comparison|null = null
-    let products:Product[] | null = null
-    let productInfos:ProductInfo[] | null = null
+    let comparison:Comparison = {body:"", features:[], key:""}  as Comparison;
+    let products:Product[]=[];
 
     const result = await getComparisonPageData(key)
 
     if(result){
-        comparison = result.comparison
+        if(result.comparison)
+            comparison = result.comparison
         products = result.products
     }
 
