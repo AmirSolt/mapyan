@@ -1,5 +1,5 @@
 import {describe, it, expect} from "vitest"
-import * as AI from "./index"
+import * as comparer from "./index"
 
 
 
@@ -34,27 +34,23 @@ const features:string[]=[
 ]
 
 
-describe("AI ", () => {
+describe("Create Option features", () => {
 
-//     it("product parser sampleProducts", async ()=>{
-//         const result = AI.productParser(sampleProducts)
-//         expect(result.length).eq(sampleProducts.length)
-//         expect(result[0].description.length).above(5)
-//     })
+	it("keyword empty", ()=>{
+        const result = comparer.createOptionFeatures(testProductInfos)
+        expect(result).toEqual([])
+    })
 
-
-    // it("createOptionFeaturesStream", async ()=>{
-    //     const streamFunction = await AI.createOptionFeaturesStream(sampleProducts)
-    //     let response = await streamFunction()
-    //     expect(response.ok).eq(true)
-    // })
-
-    it("createComparisonStream", async ()=>{
-      const streamFunction = await AI.createComparisonStream(sampleProducts, features)
-      let response = await streamFunction()
-      expect(response.ok).eq(true)
-  })
-
+    
 });
 
 
+// describe("Create comparison", () => {
+
+// 	it("keyword empty", ()=>{
+//         const result = comparer.createComparison(testProductInfos, selectedAsins)
+//         expect(result).toBe("")
+//     })
+
+    
+// });

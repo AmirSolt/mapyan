@@ -31,13 +31,13 @@ function getMessages(instructions:string|null, products:AIProduct[]|null, featur
     let messages:ChatCompletionRequestMessage[] = []
 
     if(instructions){
-        messages.push({ role: ChatCompletionRequestMessageRoleEnum.System, content:instructions})
+        messages.push({ role: ChatCompletionRequestMessageRoleEnum.System, content:instructions} as ChatCompletionRequestMessage)
     }
     if(products){
-        messages.push({ role: ChatCompletionRequestMessageRoleEnum.User, content:"Products: "+JSON.stringify(products) })
+        messages.push({ role: ChatCompletionRequestMessageRoleEnum.User, content:"Products: "+JSON.stringify(products) } as ChatCompletionRequestMessage)
     }
     if(features){
-        messages.push({ role: ChatCompletionRequestMessageRoleEnum.User, content:"Features: "+JSON.stringify(features) })
+        messages.push({ role: ChatCompletionRequestMessageRoleEnum.User, content:"Features: "+JSON.stringify(features) } as ChatCompletionRequestMessage)
     }
 
     return messages
@@ -45,7 +45,8 @@ function getMessages(instructions:string|null, products:AIProduct[]|null, featur
 }
 
 
-function getChatGPTResponse(messages:ChatCompletionRequestMessage[]) {    
+function getChatGPTResponse(messages:ChatCompletionRequestMessage[])
+:Function {    
     const chatRequestOpts: CreateChatCompletionRequest = {
         model: 'gpt-3.5-turbo',
         messages: messages,
@@ -53,7 +54,7 @@ function getChatGPTResponse(messages:ChatCompletionRequestMessage[]) {
         stream:true
     }
 
-    return async ()=>{
+    return async ():Promise<Response|null> =>{
             const chatResponse:Response = await fetch('https://api.openai.com/v1/chat/completions', {
             headers: {
                 Authorization: `Bearer ${PRIVATE_OPENAI_KEY}`,
@@ -65,7 +66,8 @@ function getChatGPTResponse(messages:ChatCompletionRequestMessage[]) {
 
         if (!chatResponse.ok) {
             const err = await chatResponse.json()
-            throw error(400, err.error.message)
+            console.log(err.error.message)
+            return null
         }
         return chatResponse
     }
@@ -96,7 +98,8 @@ export async function runChecks(products:AIProduct[]|null, features:string[]|nul
 function tokenValidation(messages:ChatCompletionRequestMessage[]):boolean{
     // =================== Validation ===================
     if (!messages) {
-        throw error(400, "No message were provided")
+        console.log("No message were provided")
+        return false
     }
 
     let tokenCount = 0
@@ -109,13 +112,15 @@ function tokenValidation(messages:ChatCompletionRequestMessage[]):boolean{
     console.log("Final token Count:",tokenCount)
 
     if (tokenCount >= 4000) {
-        throw error(400, {message: 'Token exceeds 4000'})
+        console.log('Token exceeds 4000')
+        return false
     }
+
 
     return true
 }
 
-async function getOpenAIModeration(messages:ChatCompletionRequestMessage[]){
+async function getOpenAIModeration(messages:ChatCompletionRequestMessage[]):Promise<boolean>{
     // =================== OpenAI Moderation ===================
 
     const moderationRes = await fetch('https://api.openai.com/v1/moderations', {
@@ -130,14 +135,16 @@ async function getOpenAIModeration(messages:ChatCompletionRequestMessage[]){
     })
     if (!moderationRes.ok) {
         const err = await moderationRes.json()
-        throw error(400, err.error.message)
+        console.log(`oderation req failed ${err.error.message}`)
+        return false
     }
 
     const moderationData = await moderationRes.json()
     const [results] = moderationData.results
 
     if (results.flagged) {
-        throw error(400, 'Query flagged by openai')
+        console.log('Query flagged by openai')
+        return false
     }
 
     return true

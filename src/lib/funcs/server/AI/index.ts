@@ -10,7 +10,7 @@ import * as ChatGPT from "$lib/funcs/server/chatgpt/index"
 
 
 
-export async function createOptionFeatures(products:Product[]):Promise<Function>{
+export async function createOptionFeaturesStream(products:Product[]):Promise<Function>{
 
     let AIproducts = productParser(products)
     await ChatGPT.runChecks(AIproducts, null)
@@ -18,7 +18,7 @@ export async function createOptionFeatures(products:Product[]):Promise<Function>
 
 }
 
-export async function createComparison(products:Product[], selectedFeatures:string[]):Promise<Function>{
+export async function createComparisonStream(products:Product[], selectedFeatures:string[]):Promise<Function>{
 
     let AIproducts = productParser(products)
     await ChatGPT.runChecks(AIproducts, selectedFeatures)
