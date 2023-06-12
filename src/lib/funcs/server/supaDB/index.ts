@@ -41,10 +41,10 @@ export async function getSearch(keyword:string):Promise<Product[] | null>{
 export async function getComparisonPageData(comparisonKey:string)
 :Promise<{comparison:Comparison | null, products:Product[]} | null>{
 
-    const asins = keyMaker.destructComparisonKey(comparisonKey)
+    const keys = keyMaker.destructComparisonKey(comparisonKey)
 
 
-    let result = await Promise.all([getProducts(asins), getComparison(comparisonKey)])
+    let result = await Promise.all([getProducts(keys), getComparison(comparisonKey)])
 
     let products:Product[] | null = result[0]
     let comparison:Comparison | null = result[1]
@@ -100,12 +100,12 @@ async function getComparison(comparisonKey:string):Promise<Comparison | null>{
     return data
 }
 
-async function getProducts(asins:string[]):Promise<Product[] | null>{
-    const keys = asins.map(asin=>keyMaker.structProductKey(asin))
+async function getProducts(keys:string[]):Promise<Product[] | null>{
+    const productKeys = keys.map(key=>keyMaker.structProductKey(key))
     const {data, error:err} = await supabase()
     .from('product')
     .select('brand, image_url, key, cheapest_price, rating, rating_total, title, sellers(name,url,price), productInfo(key,description)')
-    .in('key',keys)
+    .in('key',productKeys)
 
     if(err){
         console.log(`Failed to getProducts SupaDB: ${err.message}`)
@@ -117,12 +117,12 @@ async function getProducts(asins:string[]):Promise<Product[] | null>{
 }
 
 
-async function getProduct(asin:string):Promise<Product | null>{
-    const key = keyMaker.structProductKey(asin)
+async function getProduct(key:string):Promise<Product | null>{
+    const productKey = keyMaker.structProductKey(key)
     const {data, error:err} = await supabase()
     .from('product')
     .select('brand, image_url, key, cheapest_price, rating, rating_total, title, sellers(name,url,price), productInfo(key,description)')
-    .eq('key',key)
+    .eq('key',productKey)
     .single()
 
     if(err){
@@ -134,12 +134,12 @@ async function getProduct(asin:string):Promise<Product | null>{
 
 
 
-async function getProductInfo(asin:string):Promise<ProductInfo | null>{
-    const key = keyMaker.structProductInfoKey(asin)
+async function getProductInfo(key:string):Promise<ProductInfo | null>{
+    const productKey = keyMaker.structProductInfoKey(key)
     const {data, error:err} = await supabase()
     .from('productInfo')
     .select('description, key')
-    .eq('key',key)
+    .eq('key',productKey)
     .single()
 
     if(err){

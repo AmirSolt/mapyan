@@ -3,7 +3,7 @@ import * as comparisonDB from "./index"
 
 
 
-const selectedAsins = ["asd","awe"]
+const selectedKeys = ["asd","awe"]
 
 
 describe("Get comparison page data", () => {

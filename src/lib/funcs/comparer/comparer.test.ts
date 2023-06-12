@@ -57,7 +57,7 @@ describe("Create Option features", () => {
 // describe("Create comparison", () => {
 
 // 	it("keyword empty", ()=>{
-//         const result = comparer.createComparison(testProductInfos, selectedAsins)
+//         const result = comparer.createComparison(testProductInfos, selectedKeys)
 //         expect(result).toBe("")
 //     })
 

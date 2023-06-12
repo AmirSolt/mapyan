@@ -20,8 +20,8 @@ export enum SelectionLimit{
 export enum Divider{
 	featureOption="|",
 	featureHeading="/f",
-	asins="/a",
-	asinSperator="|",
+	keys="/a",
+	keySperator="|",
 	reason="/r",
 }
 

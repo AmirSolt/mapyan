@@ -5,7 +5,7 @@ import { Divider } from "$lib/utils/config";
 
 
 
-export function streamingFeatureOptionsResponseParser(response:string):string[]{
+export function featureOptionsResponseParser(response:string):string[]{
     if(!(typeof response === 'string'))
         return []
     
@@ -13,7 +13,7 @@ export function streamingFeatureOptionsResponseParser(response:string):string[]{
         .filter(string => string.trim().length > 0);
     return parts
 }
-export function streamingComparisonResponseParser(response:string):ComparisonCard[]{
+export function comparisonResponseParser(response:string):ComparisonCard[]{
     if(!(typeof response === 'string'))
         return []
 
@@ -22,25 +22,24 @@ export function streamingComparisonResponseParser(response:string):ComparisonCar
     parts.forEach(part => {
         if(part.includes(Divider.featureHeading)){
             parsedObjs.push({
-                feature:part.slice(Divider.featureHeading.length).trim(),
-                asins:[],
+                feature:part.trim().slice(Divider.featureHeading.length).trim(),
+                keys:[],
                 reason:""
             })
             return
         }
-        if(part.includes(Divider.asins)){
+        if(part.includes(Divider.keys)){
             if(parsedObjs.length>0){
-                parsedObjs.at(-1).asins = part
-                    .slice(Divider.asins.length)
-                    .trim()
-                    .split(Divider.asinSperator)
+                part = part.trim().slice(Divider.keys.length).trim()
+                parsedObjs.at(-1).keys = part
+                    .split(Divider.keySperator)
                     .filter(string => string.trim().length > 0);
                 return
             }
         }
         if(part.includes(Divider.reason)){
             if(parsedObjs.length>0){
-                parsedObjs.at(-1).reason = part.slice(Divider.reason.length).trim()
+                parsedObjs.at(-1).reason = part.trim().slice(Divider.reason.length).trim()
                 return
             }
         }

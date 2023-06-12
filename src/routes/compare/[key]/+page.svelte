@@ -15,6 +15,10 @@
 	}
 
 
+	comparison.body=`
+	/f feature
+	/a B07D29QNMJ|B0BSL5GWFN|B097M9R9CT
+	/r reason`
 
 	comparison.features = [
 		" Lithium-ion battery pack ",
@@ -29,6 +33,7 @@
 		"Multiple recharging options (AC, solar, car)"
 	]
 
+
 </script>
 
 
@@ -40,8 +45,9 @@
 	<OptionFeatures products={products??[]} />
 
 {:else}
-
+	<br>
 	<SummaryCards products={products??[]} />
+	<br>
 	<ComparisonGrid {comparison} products={products??[]} />
 
 

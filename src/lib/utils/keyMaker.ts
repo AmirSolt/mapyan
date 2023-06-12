@@ -1,15 +1,15 @@
-export function structProductKey(asin:string):string{
-    return asin
+export function structProductKey(key:string):string{
+    return key
 }
-export function structProductInfoKey(asin:string):string{
-    return asin
+export function structProductInfoKey(key:string):string{
+    return key
 }
-export function structComparisonKey(asins:string[]):string{
-    let sortedAsins = asins.sort((one, two) => (one > two ? -1 : 1));
-    sortedAsins = sortedAsins.map((item)=>item.replace(" ",""))
-    return sortedAsins.join('-')
+export function structComparisonKey(keys:string[]):string{
+    let sortedkeys = keys.sort((one, two) => (one > two ? -1 : 1));
+    sortedkeys = sortedkeys.map((item)=>item.replace(" ",""))
+    return sortedkeys.join('-')
 }
 export function destructComparisonKey(keyTable:string):string[]{
-    const asins = keyTable.split("-")
-    return asins
+    const keys = keyTable.split("-")
+    return keys
 }

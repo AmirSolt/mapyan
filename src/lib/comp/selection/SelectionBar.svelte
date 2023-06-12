@@ -25,11 +25,11 @@
 			return;
 		}
 
-		const comparisonKey = structComparisonKey(getSelectedAsins());
+		const comparisonKey = structComparisonKey(getSelectedKeys());
         goto(`/compare/${comparisonKey}`)
 	}
 
-	function getSelectedAsins(){
+	function getSelectedKeys(){
 		return $selectedProducts.map((item:Product)=>item.key)
 	}
 

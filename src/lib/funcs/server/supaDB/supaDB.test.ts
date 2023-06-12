@@ -22,11 +22,11 @@ import * as supaDB from "./index"
 // describe("Get product_info", () => {
 
 
-//     it("asin 090909909", async ()=>{
+//     it("key 090909909", async ()=>{
 //         const result = await supaDB.getProductInfo("090909909")
 //         expect(Boolean(result)).equal(false)
 //     })
-// 	it("asin B07D29QNMJ", async ()=>{
+// 	it("key B07D29QNMJ", async ()=>{
 //         const result = await supaDB.getProductInfo("B07D29QNMJ")
 //         expect(Boolean(result)).equal(true)
 //     })

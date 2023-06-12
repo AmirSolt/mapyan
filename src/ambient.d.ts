@@ -37,7 +37,7 @@ interface Comparison {
 
 interface ComparisonCard {
 	feature: string
-	asins: string[]
+	keys: string[]
 	reason: string
 }
 

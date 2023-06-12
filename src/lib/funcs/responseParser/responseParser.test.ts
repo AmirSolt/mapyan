@@ -12,17 +12,17 @@ const featureResponse5 = ["asd",'qwd','12']
 
 const comparisonResponse = `
 /f Feature1
-/a asin1|asin2|asin3
+/a key1|key2|key3
 /r reason`
 const comparisonResponse2 = `
 /f Feature1
-/a asin1|asin2|asi`
+/a key1|key2|asi`
 const comparisonResponse3 = `
 /f Feature1
-/a asin1|asin2|asin3
+/a key1|key2|key3
 /r reason
 /f Feature1
-/a asin1|asi`
+/a key1|asi`
 const comparisonResponse4 = ``
 const comparisonResponse5 = `wlqkd`
 const comparisonResponse6 = `/f `
@@ -40,27 +40,27 @@ qo
 describe("Parse feature options response", () => {
 
 	it("featureResponse",()=>{
-        let r = parser.streamingFeatureOptionsResponseParser(featureResponse)
+        let r = parser.featureOptionsResponseParser(featureResponse)
         console.log(r)
         expect(r).eql(["feature1", "feature2", "feature3"])
     })
     it("featureResponse2",()=>{
-        let r = parser.streamingFeatureOptionsResponseParser(featureResponse2)
+        let r = parser.featureOptionsResponseParser(featureResponse2)
         console.log(r)
         expect(r).eql(["feature1", "fea"])
     })
     it("featureResponse3",()=>{
-        let r = parser.streamingFeatureOptionsResponseParser(featureResponse3)
+        let r = parser.featureOptionsResponseParser(featureResponse3)
         console.log(r)
         expect(r).eql([])
     })
     it("featureResponse4",()=>{
-        let r = parser.streamingFeatureOptionsResponseParser(featureResponse4)
+        let r = parser.featureOptionsResponseParser(featureResponse4)
         console.log(r)
         expect(r).eql([])
     })
     it("featureResponse5",()=>{
-        let r = parser.streamingFeatureOptionsResponseParser(featureResponse5)
+        let r = parser.featureOptionsResponseParser(featureResponse5)
         console.log(r)
         expect(r).eql([])
     })
@@ -69,78 +69,78 @@ describe("Parse feature options response", () => {
 
 describe("Parse comparison response", () => {
     it("comparisonResponse",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse)
+        let r = parser.comparisonResponseParser(comparisonResponse)
         console.log(r)
         expect(r).eql([{
             feature:"Feature1",
-            asins:["asin1","asin2","asin3"],
+            keys:["key1","key2","key3"],
             reason:"reason"
         }])
     })
     it("comparisonResponse2",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse2)
+        let r = parser.comparisonResponseParser(comparisonResponse2)
         console.log(r)
         expect(r).eql([{
             feature:"Feature1",
-            asins:["asin1","asin2","asi"],
+            keys:["key1","key2","asi"],
             reason:""
         }])
     })
     it("comparisonResponse3",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse3)
+        let r = parser.comparisonResponseParser(comparisonResponse3)
         console.log(r)
         expect(r).eql([{
             feature:"Feature1",
-            asins:["asin1","asin2","asin3"],
+            keys:["key1","key2","key3"],
             reason:"reason"
         },{
             feature:"Feature1",
-            asins:["asin1","asi"],
+            keys:["key1","asi"],
             reason:""
         }])
     })
     it("comparisonResponse4",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse4)
+        let r = parser.comparisonResponseParser(comparisonResponse4)
         console.log(r)
         expect(r).eql([])
     })
     it("comparisonResponse5",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse5)
+        let r = parser.comparisonResponseParser(comparisonResponse5)
         console.log(r)
         expect(r).eql([])
     })
     it("comparisonResponse6",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse6)
+        let r = parser.comparisonResponseParser(comparisonResponse6)
         console.log(r)
         expect(r).eql([
             {
                 feature:"",
-                asins:[],
+                keys:[],
                 reason:""
             }
         ])
     })
     it("comparisonResponse7",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse7)
+        let r = parser.comparisonResponseParser(comparisonResponse7)
         console.log(r)
         expect(r).eql([])
     })
     it("comparisonResponse8",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse8)
+        let r = parser.comparisonResponseParser(comparisonResponse8)
         console.log(r)
         expect(r).eql([])
     })
     it("comparisonResponse9",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse9)
+        let r = parser.comparisonResponseParser(comparisonResponse9)
         console.log(r)
         expect(r).eql([])
     })
     it("comparisonResponse10",()=>{
-        let r = parser.streamingComparisonResponseParser(comparisonResponse10)
+        let r = parser.comparisonResponseParser(comparisonResponse10)
         console.log(r)
         expect(r).eql([{
             feature:"qwd",
-            asins:[],
+            keys:[],
             reason:""
         }])
     })
