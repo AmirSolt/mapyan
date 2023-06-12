@@ -12,9 +12,16 @@ export enum SelectionLimit{
 	min=2,
 	max=3,
 }
+
+
+
+
+
 export enum Divider{
-	feature="$",
-	asins="%",
-	reason="@",
+	featureOption="|",
+	featureHeading="/f",
+	asins="/a",
+	asinSperator="|",
+	reason="/r",
 }
 

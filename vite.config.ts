@@ -5,6 +5,6 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	test: {
 		// include: ['src/**/*.{test,spec}.{js,ts}']
-		include: ['src/**/comparer.{test,spec}.{js,ts}']
+		include: ['src/**/responseParser.{test,spec}.{js,ts}']
 	}
 });
