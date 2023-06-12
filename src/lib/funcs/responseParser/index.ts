@@ -5,18 +5,23 @@ import { Divider } from "$lib/utils/config";
 
 
 
-export function streamingFeatureOptionsResponseParser(response:string){
+export function streamingFeatureOptionsResponseParser(response:string):string[]{
+    if(!(typeof response === 'string'))
+        return []
     
     let parts = response.split(Divider.featureOption)
         .filter(string => string.trim().length > 0);
     return parts
 }
 export function streamingComparisonResponseParser(response:string):ComparisonCard[]{
-    let parsedObj:ComparisonCard[]=[];
+    if(!(typeof response === 'string'))
+        return []
+
+    let parsedObjs:ComparisonCard[]=[];
     let parts = response.split("\n")
     parts.forEach(part => {
         if(part.includes(Divider.featureHeading)){
-            parsedObj.push({
+            parsedObjs.push({
                 feature:part.slice(Divider.featureHeading.length).trim(),
                 asins:[],
                 reason:""
@@ -24,20 +29,24 @@ export function streamingComparisonResponseParser(response:string):ComparisonCar
             return
         }
         if(part.includes(Divider.asins)){
-            parsedObj.at(-1).asins = part
-                .slice(Divider.asins.length)
-                .trim()
-                .split(Divider.asinSperator)
-                .filter(string => string.trim().length > 0);
-            return
+            if(parsedObjs.length>0){
+                parsedObjs.at(-1).asins = part
+                    .slice(Divider.asins.length)
+                    .trim()
+                    .split(Divider.asinSperator)
+                    .filter(string => string.trim().length > 0);
+                return
+            }
         }
         if(part.includes(Divider.reason)){
-            parsedObj.at(-1).reason = part.slice(Divider.reason.length).trim()
-            return
+            if(parsedObjs.length>0){
+                parsedObjs.at(-1).reason = part.slice(Divider.reason.length).trim()
+                return
+            }
         }
     });
 
-    return parsedObj
+    return parsedObjs
 }
 
 function getElementsWithIndex(arr:any[]) {
