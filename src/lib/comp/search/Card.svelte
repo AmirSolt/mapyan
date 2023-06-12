@@ -30,7 +30,7 @@
 		<header class="flex justify-center items-center">
 			<button on:click={onAdd}>
 				<div
-					class="flex justify-center items-center w-40 h-44 sm:w-72 sm:h-74 p-2 sm:p-4 rounded-lg bg-white shadow-gray-800/90"
+					class="flex justify-center items-center w-40 h-44 sm:w-60 sm:h-64 p-2 sm:p-4 rounded-lg bg-white shadow-gray-800/90"
 				>
                     {#if thisInSelecteds}
                         <div class="absolute top-0 left-0 variant-filled-primary rounded-full p-2">

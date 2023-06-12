@@ -1,6 +1,6 @@
 <script lang="ts">
 	import OptionFeatures from '$lib/comp/compare/OptionFeatures.svelte';
-	import CompareTable from '$lib/comp/compare/CompareTable.svelte';
+	import SummaryCards from '$lib/comp/compare/SummaryCards.svelte';
 	import ComparisonGrid from '$lib/comp/compare/ComparisonGrid.svelte';
     import {toastError} from '$lib/utils/toast'
 
@@ -41,7 +41,7 @@
 
 {:else}
 
-	<CompareTable products={products??[]} />
+	<SummaryCards products={products??[]} />
 	<ComparisonGrid {comparison} products={products??[]} />
 
 
