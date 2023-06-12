@@ -16,18 +16,18 @@
 
 
 
-	// comparison.features = [
-	// 	" Lithium-ion battery pack ",
-	// 	"Pure sine wave AC outlet ",
-	// 	"USB-A ports ",
-	// 	"12V DC car port ",
-	// 	"Solar panel compatibility ",
-	// 	"Lightweight and portable design",
-	// 	"Battery management system ",
-	// 	"Overheating protection ",
-	// 	"Swappable U-Battery ",
-	// 	"Multiple recharging options (AC, solar, car)"
-	// ]
+	comparison.features = [
+		" Lithium-ion battery pack ",
+		"Pure sine wave AC outlet ",
+		"USB-A ports ",
+		"12V DC car port ",
+		"Solar panel compatibility ",
+		"Lightweight and portable design",
+		"Battery management system ",
+		"Overheating protection ",
+		"Swappable U-Battery ",
+		"Multiple recharging options (AC, solar, car)"
+	]
 
 </script>
 

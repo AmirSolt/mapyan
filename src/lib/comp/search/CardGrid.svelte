@@ -6,7 +6,7 @@
 
 	export let products:Product[] = [];
 
-    import {addToSelected} from '$lib/utils/stores'
+    import {addToSelected, selectedProducts} from '$lib/utils/stores'
 
 
 
@@ -14,6 +14,7 @@
     function productCallback(event:any){
         const product = event.detail.product;
         addToSelected(product)
+		console.log($selectedProducts)
     }
 
     

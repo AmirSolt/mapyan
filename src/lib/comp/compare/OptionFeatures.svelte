@@ -26,10 +26,10 @@
 
 
     onMount(()=>{
-        const eventSource = createOptionFeaturesStream(products??[],  newContentCallback, overCallback, errorCallback)
-        if(eventSource){
-            eventSource.stream()
-        }
+        // const eventSource = createOptionFeaturesStream(products??[],  newContentCallback, overCallback, errorCallback)
+        // if(eventSource){
+        //     eventSource.stream()
+        // }
     })
 
 

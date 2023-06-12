@@ -23,7 +23,7 @@ const supabase = ()=> createClient<Database>(
 export async function getSearch(keyword:string):Promise<Product[] | null>{
     const {data, error:err} = await supabase()
         .from('product')
-        .select('brand,image_url,key,price,rating,title,url')
+        .select('brand, image_url, key, cheapest_price, rating, rating_total, title')
         .textSearch('title', keyword,
         {type:"websearch",
         config:"english"})
@@ -104,13 +104,15 @@ async function getProducts(asins:string[]):Promise<Product[] | null>{
     const keys = asins.map(asin=>keyMaker.structProductKey(asin))
     const {data, error:err} = await supabase()
     .from('product')
-    .select('brand,image_url,key,price,rating,title,url,productInfo(description, key)')
+    .select('brand, image_url, key, cheapest_price, rating, rating_total, title, sellers(name,url,price), productInfo(key,description)')
     .in('key',keys)
 
     if(err){
         console.log(`Failed to getProducts SupaDB: ${err.message}`)
         return null
     }
+    
+
     return data
 }
 
@@ -119,7 +121,7 @@ async function getProduct(asin:string):Promise<Product | null>{
     const key = keyMaker.structProductKey(asin)
     const {data, error:err} = await supabase()
     .from('product')
-    .select('brand,image_url,key,price,rating,title,url,productInfo(description, key)')
+    .select('brand, image_url, key, cheapest_price, rating, rating_total, title, sellers(name,url,price), productInfo(key,description)')
     .eq('key',key)
     .single()
 

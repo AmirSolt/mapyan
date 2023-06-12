@@ -36,36 +36,36 @@ export interface Database {
       product: {
         Row: {
           brand: string | null
+          cheapest_price: number | null
           created_at: string | null
           id: number
           image_url: string
           key: string
-          price: number | null
           rating: number | null
+          rating_total: number | null
           title: string
-          url: string | null
         }
         Insert: {
           brand?: string | null
+          cheapest_price?: number | null
           created_at?: string | null
           id?: number
           image_url: string
           key: string
-          price?: number | null
           rating?: number | null
+          rating_total?: number | null
           title: string
-          url?: string | null
         }
         Update: {
           brand?: string | null
+          cheapest_price?: number | null
           created_at?: string | null
           id?: number
           image_url?: string
           key?: string
-          price?: number | null
           rating?: number | null
+          rating_total?: number | null
           title?: string
-          url?: string | null
         }
         Relationships: []
       }
@@ -92,6 +92,40 @@ export interface Database {
           {
             foreignKeyName: "productInfo_id_fkey"
             columns: ["id"]
+            referencedRelation: "product"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      sellers: {
+        Row: {
+          created_at: string | null
+          id: number
+          name: string | null
+          price: number | null
+          product_id: number | null
+          url: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          name?: string | null
+          price?: number | null
+          product_id?: number | null
+          url?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          name?: string | null
+          price?: number | null
+          product_id?: number | null
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sellers_product_id_fkey"
+            columns: ["product_id"]
             referencedRelation: "product"
             referencedColumns: ["id"]
           }

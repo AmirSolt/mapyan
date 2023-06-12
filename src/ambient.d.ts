@@ -8,10 +8,11 @@ interface Product {
 	brand: string | null
 	image_url: string
 	key: string
-	price: number | null
+	cheapest_price: number | null
 	rating: number | null
+	rating_total: number | null
 	title: string
-	url: string | null
+	sellers?: Seller[]
 	productInfo?: ProductInfo
 }
 
@@ -20,7 +21,11 @@ interface ProductInfo {
 	key: string
 }
 
-
+interface Seller {
+	name: string
+	url: string
+	price: string
+}
 // ========================================
 
 

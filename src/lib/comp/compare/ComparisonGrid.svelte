@@ -26,10 +26,10 @@
 
 
     onMount(()=>{
-        const eventSource = createComparisonStream(products??[], comparison.features,newContentCallback, overCallback, errorCallback)
-        if(eventSource){
-            eventSource.stream()
-        }
+        // const eventSource = createComparisonStream(products??[], comparison.features,newContentCallback, overCallback, errorCallback)
+        // if(eventSource){
+        //     eventSource.stream()
+        // }
     })
 
 
