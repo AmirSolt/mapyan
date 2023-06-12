@@ -15,6 +15,7 @@
     let comparisonCards:ComparisonCard[]=[];
 
 
+    $:  comparisonCards = comparisonResponseParser(comparisonBody)
 
 
     // ==========================================================
@@ -50,7 +51,6 @@
 
 
 
-    $:  comparisonCards = comparisonResponseParser(comparisonBody)
 
 </script>
 

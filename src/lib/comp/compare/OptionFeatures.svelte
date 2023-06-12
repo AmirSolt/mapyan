@@ -3,18 +3,30 @@
 
 	export let products: Product[];
 
-
-    
+    import {Box} from 'lucide-svelte'
+    import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
+    import {featureOptionsResponseParser} from '$lib/funcs/responseParser/index'
 	import {createOptionFeaturesStream} from '$lib/funcs/comparer/index'
 	import { error } from '@sveltejs/kit';
     import {onMount} from 'svelte'
     
-	let comparisonBody = "";
-    let isStreaming = false;
+	let featuresBody:string = "";
+    let features:string[]=[];
+    let selectedFeatures:string[] = []
+    let isStreaming:boolean = false;
+
+
+    // =========================**** TEST *****=================================
+    featuresBody = "feature1 | feature2|feature3 |feature4| feature5"
+    // ==========================================================
+
   
 
+    $: features = featureOptionsResponseParser(featuresBody)
+
+    // ==========================================================
     function newContentCallback(newContent:string){
-        comparisonBody += newContent;
+        featuresBody += newContent;
         isStreaming = true;
     }
     function overCallback(){
@@ -31,20 +43,53 @@
         //     eventSource.stream()
         // }
     })
+    // ==========================================================
 
 
-
+    // ==========================================================
+    import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+	function onSubmit() {
+		dispatch('submit', {
+			selectedFeatures
+		});
+	}
 
 </script>
 
 <!-- on awaiting loading -->
 
-<h1>Features</h1>
 
 
-<p>
-	{comparisonBody}
-</p>
-<p>
-	{isStreaming}
-</p>
+<div class="card w-full p-4 ">
+    <h1 class="mb-6 text-4xl ">
+        Choose which features to compare:
+    </h1>
+
+    <ListBox  active="variant-filled-primary" hover="variant-soft hover:variant-soft-primary" class="w-full " multiple>
+        {#each features as feature}
+            <ListBoxItem class="" bind:group={selectedFeatures} name="feature" value="{feature}">
+                <svelte:fragment slot="lead"><Box /></svelte:fragment>
+                <p class="text-xl sm:text-2xl">
+                    {feature}
+                </p>
+            </ListBoxItem>
+        {/each}
+    </ListBox>
+    
+    <br>
+    <br>
+    
+    <div class="flex flex-col justify-center items-center  w-full">
+        <button type="button" class="btn variant-filled-primary w-full md:w-1/2" on:click={onSubmit}>
+            <span>Submit</span>
+        </button>
+    </div>
+    
+    <br>
+    <br>
+</div>
+
+<br>
+<br>
+<br>

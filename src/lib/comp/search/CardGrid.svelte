@@ -14,7 +14,6 @@
     function productCallback(event:any){
         const product = event.detail.product;
         addToSelected(product)
-		console.log($selectedProducts)
     }
 
     
