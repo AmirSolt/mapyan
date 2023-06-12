@@ -22,9 +22,9 @@ interface ProductInfo {
 }
 
 interface Seller {
-	name: string | null
-	url: string | null
-	price: string | null
+	name: string
+	url: string
+	price: number | null
 }
 // ========================================
 

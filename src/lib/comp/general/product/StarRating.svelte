@@ -1,6 +1,6 @@
 
 <script lang="ts">
-    export let rating:number | null = 0;
+    export let rating:number = 0;
     export let size:string = "w-5 h-5"
     export let textSize:string = "text-sm"
     export let totalStars:number = 5;

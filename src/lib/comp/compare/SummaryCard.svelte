@@ -2,7 +2,8 @@
 	export let product: Product;
 	import StarRating from '$lib/comp/general/product/StarRating.svelte';
 	import { PriceFeatures } from '$lib/utils/config';
-
+    import {cleanSellers} from "$lib/funcs/seller/index"
+    import {ExternalLink} from 'lucide-svelte'
 
 	function truncate(text: string, size: number) {
 		return text.substring(0, size) + ' ...';
@@ -78,15 +79,18 @@
         <div class="flex flex-col justify-center items-start gap-2 p-2">
             <!-- Sellers -->
             {#if product.sellers}
-                {#each product.sellers as seller}
+                {#each cleanSellers(product, product.sellers) as seller}
                     {#if seller.url}
-                        <a class="card variant-filled flex flex-row gap-2 w-full p-1" href="{seller.url}" target="_blank" rel="noopener" >
-                            {#if seller.name}
-                                <p class="text-sm ">  {seller.name} </p>
-                            {/if}
-                            {#if seller.price}
-                                <p class="text-sm ">  ≈{PriceFeatures.symbol}{seller.price} </p>
-                            {/if}
+                        <a class="card variant-filled flex flex-row justify-evenly items-center gap-2 w-full sm:w-1/2 p-1" href="{seller.url}" target="_blank" rel="noopener" >
+                            <div class="flex flex-row justify-center items-center">
+                                {#if seller.name}
+                                    <p class="text-sm ">  {seller.name} </p>
+                                {/if}
+                                {#if seller.price}
+                                    <p class="text-sm ">  ≈{PriceFeatures.symbol}{seller.price} </p>
+                                {/if}
+                            </div>
+                            <ExternalLink />
                         </a>
                     {/if}
                 {/each} 
