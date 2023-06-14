@@ -45,6 +45,7 @@ interface ComparisonCard {
 
 
 interface AIProduct {
+	key:string
 	title: string
 	description: string
 }

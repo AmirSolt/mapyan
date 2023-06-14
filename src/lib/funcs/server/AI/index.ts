@@ -33,6 +33,7 @@ export function productParser(products:Product[]):AIProduct[]{
     let r:AIProduct[] = []
     products.forEach(product=>{
         r.push({
+            "key":product.key,
             "title":product.title,
             "description":product.productInfo?.description
         }as AIProduct)

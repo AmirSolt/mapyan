@@ -2,6 +2,7 @@
 	import { toastError } from '$lib/utils/toast';
 
 	export let products: Product[];
+    import LoadingAnim from '$lib/comp/general/loading/LoadingAnim.svelte';
 
     import {Box} from 'lucide-svelte'
     import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
@@ -13,12 +14,7 @@
 	let featuresBody:string = "";
     let features:string[]=[];
     let selectedFeatures:string[] = []
-    let isStreaming:boolean = false;
-
-
-    // =========================**** TEST *****=================================
-    featuresBody = "feature1 | feature2|feature3 |feature4| feature5"
-    // ==========================================================
+    let isStreaming:boolean = featuresBody.length===0;
 
   
 
@@ -38,10 +34,10 @@
 
 
     onMount(()=>{
-        // const eventSource = createOptionFeaturesStream(products??[],  newContentCallback, overCallback, errorCallback)
-        // if(eventSource){
-        //     eventSource.stream()
-        // }
+        const eventSource = createOptionFeaturesStream(products??[],  newContentCallback, overCallback, errorCallback)
+        if(eventSource){
+            eventSource.stream()
+        }
     })
     // ==========================================================
 
@@ -78,7 +74,17 @@
     </ListBox>
     
     <br>
+    {#if isStreaming}
+        <div class="flex flex-col justify-center items-start card variant-soft gap-4 p-4 w-full">
+
+            <div class="w-full">
+
+                <LoadingAnim />
+            </div>
+        </div>
+    {/if}
     <br>
+
     
     <div class="flex flex-col justify-center items-center  w-full">
         <button type="button" class="btn variant-filled-primary w-full md:w-1/2" on:click={onSubmit}>

@@ -81,7 +81,7 @@
             {#if product.sellers}
                 {#each cleanSellers(product, product.sellers) as seller}
                     {#if seller.url}
-                        <a class="card variant-filled flex flex-row justify-evenly items-center gap-2 w-full sm:w-1/2 p-1" href="{seller.url}" target="_blank" rel="noopener" >
+                        <a class="card variant-filled flex flex-row justify-evenly items-center gap-2 w-32 sm:w-1/2 p-1" href="{seller.url}" target="_blank" rel="noopener" >
                             <div class="flex flex-row justify-center items-center">
                                 {#if seller.name}
                                     <p class="text-sm ">  {seller.name} </p>

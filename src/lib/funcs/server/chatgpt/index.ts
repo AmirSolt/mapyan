@@ -3,19 +3,19 @@ import { PRIVATE_OPENAI_KEY } from '$env/static/private'
 import type { CreateChatCompletionRequest, ChatCompletionRequestMessage } from 'openai'
 import { ChatCompletionRequestMessageRoleEnum } from 'openai'
 import { getTokens } from './tokenizer'
-import { FEATURES_INSTRUCTIONS, COMPARISON_INSTRUCTIONS, TEMPRETURE } from './config'
+import { getFeaturesInstructions, getComparisonInstructions, TEMPRETURE } from './config'
 import {error} from '@sveltejs/kit'
 
 
 
 
 export function getOptionFeaturesStream(products:AIProduct[]):Function{
-    let messages = getMessages(FEATURES_INSTRUCTIONS,products,null)
+    let messages = getMessages(getFeaturesInstructions(products),products,null)
     return getChatGPTResponse(messages)
 }
 
 export function getComparisonStream(products:AIProduct[], selectedFeatures:string[]):Function{
-    let messages = getMessages(FEATURES_INSTRUCTIONS,products,selectedFeatures)
+    let messages = getMessages(getComparisonInstructions(products, selectedFeatures),products,selectedFeatures)
     return getChatGPTResponse(messages)
 }
 

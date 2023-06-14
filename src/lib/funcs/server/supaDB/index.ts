@@ -69,7 +69,7 @@ export async function saveComparison(comparison:Comparison)
 
 
     const {data, error:err} = await supabase()
-    .from('comparisons')
+    .from('comparison')
     .insert({body:comparison.body, 
         key:comparison.key, 
         features:comparison.features, })
