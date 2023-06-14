@@ -32,7 +32,4 @@
 		value={progressValue}
 	/>
 
-
-	<slot />
-
 </div>

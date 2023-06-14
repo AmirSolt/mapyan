@@ -42,14 +42,7 @@
 <LoadingContainer >
     <LoadingAnim />
     <br>
-    <BarLoading seconds={5}>
-        <br />
-        <div class="flex flex-col justify-center items-center text-center">
-            <br />
-            <p>We are working to improve the loading speed.</p>
-            <p>Thank you for being patient.</p>
-        </div>
-    </BarLoading>
+    <BarLoading seconds={5} />
 </LoadingContainer>
 
 {/if}

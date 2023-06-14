@@ -6,7 +6,7 @@
     import LoadingAnim from '$lib/comp/general/loading/LoadingAnim.svelte';
     import {comparisonResponseParser} from '$lib/funcs/responseParser/index'
 	import {createComparisonStream} from '$lib/funcs/comparer/index'
-    
+    import {structComparisonKey} from '$lib/utils/keyMaker'
     export let comparison:Comparison;
     export let products:Product[];
 
@@ -37,6 +37,11 @@
     }
 
     function saveComparison(){
+
+        const productKeys = products.map(product=>product.key)
+        comparison.key = structComparisonKey(productKeys);
+        comparison.body = comparisonBody;
+
         const response = fetch('/api/db/save-comparison', {
         headers: {
             'Content-Type': 'application/json'
@@ -102,7 +107,7 @@
                     </div>
                 {/each}
             </div>
-            <div class="card p-2 mt-4">
+            <div class="card p-2 mt-4 variant-filled-surface">
                 <p class="text-lg" ><b>Why:</b> {card.reason}</p>
             </div>
         </div>

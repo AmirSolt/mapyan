@@ -27,7 +27,6 @@ export function createComparisonStream(products: Product[], selectedFeatures: st
 }
 
 
-
 function getAIResponse(products: Product[], selectedFeatures: string[] | null, newContentCallback: Function, overCallback: Function, errorCallback: Function): SSE  {
 
 

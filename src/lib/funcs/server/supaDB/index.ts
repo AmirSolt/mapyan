@@ -67,6 +67,7 @@ export async function getComparisonPageData(comparisonKey:string)
 export async function saveComparison(comparison:Comparison)
 :Promise<boolean>{
 
+    
 
     const {data, error:err} = await supabase()
     .from('comparison')

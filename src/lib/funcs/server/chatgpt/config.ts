@@ -15,7 +15,7 @@ export function getComparisonInstructions(products:AIProduct[], features:string[
 
     return `You are given ${products.length} products and ${features.length} features. For every feature compare all products, rank them and give the reason for your ranking.
     To rank each product put the key in order of best to worst.
-    Use their title to refer to them in your reason.
+    When Explaining your reason for ranking each product refer to them by their title.
     Seperate to new lines. Use this template to respond for every feature: 
     ${Divider.featureHeading} feature
     ${Divider.keys} key1${Divider.keySperator}key2${Divider.keySperator}key3
