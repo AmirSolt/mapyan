@@ -28,6 +28,8 @@ export async function getSearch(keyword:string):Promise<Product[] | null>{
         {type:"websearch",
         config:"english"})
 
+
+
     if(err){
         console.log(`Failed to getSearch SupaDB: ${err.message}`)
         return null

@@ -18,7 +18,7 @@ export enum SelectionLimit{
 
 
 export enum Divider{
-	featureOption="|",
+	featureOption="||",
 	featureHeading="/f",
 	keys="/a",
 	keySperator="|",

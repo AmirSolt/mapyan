@@ -3,12 +3,12 @@ import {Divider} from '$lib/utils/config'
 
 // export const FEATURES_INSTRUCTIONS = "Based on the given products come up with 15 features that can be compared "
 // export const COMPARISON_INSTRUCTIONS = "Compare products based on given features"
-export const TEMPRETURE = 0.5
+export const TEMPRETURE = 0.42
 
 
 export function getFeaturesInstructions(products:AIProduct[]){
 
-    return `You are given ${products.length} products. Generate 10 features to compare these products. Only respond in a list of features. Use "|" as seperator. Use this Template: Feature|Feature|Feature|...`
+    return `You are given ${products.length} products. Come up with 10 features that can be compared between these products. Example of some features: Charging||Texture||Capacity||Cores||Speed||....  Only respond in a list of features. Use "${Divider.featureOption}" as seperator. Use this Template: Feature${Divider.featureOption}Feature${Divider.featureOption}Feature${Divider.featureOption}...`
 }
 
 export function getComparisonInstructions(products:AIProduct[], features:string[]){
