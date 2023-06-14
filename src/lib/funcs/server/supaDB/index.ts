@@ -36,72 +36,7 @@ export async function getSearch(keyword:string):Promise<Product[] | null>{
 }
 
 
-
-
-export async function getComparisonPageData(comparisonKey:string)
-:Promise<{comparison:Comparison | null, products:Product[]} | null>{
-
-    const keys = keyMaker.destructComparisonKey(comparisonKey)
-
-
-    let result = await Promise.all([getProducts(keys), getComparison(comparisonKey)])
-
-    let products:Product[] | null = result[0]
-    let comparison:Comparison | null = result[1]
-
-    if(!products){
-        console.log(`Failed to getComparisonPageData fetch`)
-        return null
-    }
-
-
-
-    return {products, comparison}
-}
-
-
-
-
-
-
-export async function saveComparison(comparison:Comparison)
-:Promise<boolean>{
-
-    
-
-    const {data, error:err} = await supabase()
-    .from('comparison')
-    .insert({body:comparison.body, 
-        key:comparison.key, 
-        features:comparison.features, })
-    
-
-    if(err){
-        console.log(`Failed to saveComparison SupaDB: ${err.message}`)
-        return false
-    }
-
-
-    return true
-}
-
-
-
-async function getComparison(comparisonKey:string):Promise<Comparison | null>{
-    const {data, error:err} = await supabase()
-    .from('comparison')
-    .select('body, key, features')
-    .eq('key',comparisonKey)
-    .single()
-
-    if(err){
-        console.log(`Failed to getComparison SupaDB: ${err.message}`)
-        return null
-    }
-    return data
-}
-
-async function getProducts(keys:string[]):Promise<Product[] | null>{
+export async function getProducts(keys:string[]):Promise<Product[] | null>{
     const productKeys = keys.map(key=>keyMaker.structProductKey(key))
     const {data, error:err} = await supabase()
     .from('product')
@@ -116,6 +51,12 @@ async function getProducts(keys:string[]):Promise<Product[] | null>{
 
     return data
 }
+
+
+
+
+// =============================================================================================
+
 
 
 async function getProduct(key:string):Promise<Product | null>{

@@ -9,30 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      comparison: {
-        Row: {
-          body: string
-          created_at: string | null
-          features: string[]
-          id: number
-          key: string
-        }
-        Insert: {
-          body: string
-          created_at?: string | null
-          features: string[]
-          id?: number
-          key: string
-        }
-        Update: {
-          body?: string
-          created_at?: string | null
-          features?: string[]
-          id?: number
-          key?: string
-        }
-        Relationships: []
-      }
       product: {
         Row: {
           brand: string | null
@@ -101,26 +77,26 @@ export interface Database {
         Row: {
           created_at: string | null
           id: number
-          name: string | null
+          name: string
           price: number | null
           product_id: number | null
-          url: string | null
+          url: string
         }
         Insert: {
           created_at?: string | null
           id?: number
-          name?: string | null
+          name: string
           price?: number | null
           product_id?: number | null
-          url?: string | null
+          url: string
         }
         Update: {
           created_at?: string | null
           id?: number
-          name?: string | null
+          name?: string
           price?: number | null
           product_id?: number | null
-          url?: string | null
+          url?: string
         }
         Relationships: [
           {

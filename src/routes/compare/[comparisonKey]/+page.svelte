@@ -6,38 +6,22 @@
 
 
 	export let data;
-	let { comparisonKey, comparison, products } = data;
+	let { products } = data;
 
 	// Need ProductInfo to generate features
-	if (!comparison || !products) {
+	if (!products) {
 		const message = 'Sorry, could not get the results!';
         toastError(message)
 	}
 
 
-	// comparison.body=`
-	// /f feature
-	// /a B07D29QNMJ|B0BSL5GWFN|B097M9R9CT
-	// /r reason`
-
-	// comparison.features = [
-	// 	" Lithium-ion battery pack ",
-	// 	"Pure sine wave AC outlet ",
-	// 	"USB-A ports ",
-	// 	"12V DC car port ",
-	// 	"Solar panel compatibility ",
-	// 	"Lightweight and portable design",
-	// 	"Battery management system ",
-	// 	"Overheating protection ",
-	// 	"Swappable U-Battery ",
-	// 	"Multiple recharging options (AC, solar, car)"
-	// ]
+	let features:string[] = [];
 
 
 	// ================== Feature Options Callback ==================
     function featuresSubmitCallback(event:any){
         const selectedFeatures = event.detail.selectedFeatures;
-        comparison.features = selectedFeatures
+        features = selectedFeatures
     }
 
 </script>
@@ -46,7 +30,7 @@
 
 
 
-{#if comparison.features.length <= 0}
+{#if features.length <= 0}
 
 	<OptionFeatures products={products??[]} on:submit={featuresSubmitCallback} />
 
@@ -54,7 +38,6 @@
 	<br>
 	<SummaryCards products={products??[]} />
 	<br>
-	<ComparisonGrid {comparison} products={products??[]} />
-
+	<ComparisonGrid {features}  products={products??[]} />
 
 {/if}

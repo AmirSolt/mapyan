@@ -29,11 +29,11 @@ interface Seller {
 // ========================================
 
 
-interface Comparison {
-	body: string
-	features: string[]
-	key: string
-}
+// interface Comparison {
+// 	body: string
+// 	features: string[]
+// 	key: string
+// }
 
 interface ComparisonCard {
 	feature: string
