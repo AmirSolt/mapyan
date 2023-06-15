@@ -87,7 +87,7 @@
 
     
     <div class="flex flex-col justify-center items-center  w-full">
-        <button type="button" class="btn variant-filled-primary w-full md:w-1/2" on:click={onSubmit} disabled='{isStreaming}'>
+        <button class="btn variant-filled-primary w-full md:w-1/2" on:click={onSubmit} disabled='{isStreaming}'>
             <span>Submit</span>
         </button>
     </div>
