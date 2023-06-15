@@ -34,12 +34,26 @@ export function cleanSellers(product:Product, sellers:Seller[]):Seller[]{
         seller.url = addAffiliateCode(seller.url)
     })
 
+    // ================Order Sellers====================
+    sellers.sort(compareSellers)
+
 
     return sellers
 }
 
 
+function compareSellers(a:Seller, b:Seller) {
+    let priceA:number = a.price??Infinity
+    let priceB:number = b.price??Infinity
 
+    if ( priceA < priceB ){
+      return -1;
+    }
+    if ( priceA > priceB ){
+      return 1;
+    }
+    return 0;
+  }
 
 
         
