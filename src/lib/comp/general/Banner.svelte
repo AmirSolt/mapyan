@@ -9,7 +9,7 @@
 			</h1>
 			<br>
 			<p class="text-3xl">
-				Generate a comparison table for all products, using AI.
+				Generate a comparison table for any products, using AI.
 			</p>
 		</div>
 		
