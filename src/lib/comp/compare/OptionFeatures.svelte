@@ -59,7 +59,7 @@
 
 <div class="card w-full p-4 ">
     <h1 class="mb-6 text-4xl ">
-        Choose which features to compare:
+        Select features to compare:
     </h1>
 
     <ListBox  active="variant-filled-primary" hover="variant-soft hover:variant-soft-primary" class="w-full " multiple>
