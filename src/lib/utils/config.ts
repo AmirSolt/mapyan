@@ -14,7 +14,7 @@ export enum SelectionLimit{
 }
 
 
-
+export const SEARCH_COUNT_LIMIT = 30
 
 
 export enum Divider{

@@ -25,7 +25,7 @@
 {#if product.title && product.image_url}
 	<div
 		id="product_card"
-		class=" flex flex-row sm:flex-col   card drop-shadow-md !bg-transparent rounded-lg p-2 sm:p-4"
+		class=" flex flex-row sm:flex-col   card drop-shadow-md !bg-transparent rounded-lg sm:gap-4 p-2 sm:p-4"
 	>
 		<!-- Media -->
 		<header class="flex justify-center items-center">
@@ -40,7 +40,7 @@
                     {/if}
 
 					<img
-						class="max-w-full max-h-full"
+						class="max-w-full max-h-full rounded-lg"
 						src={product.image_url}
 						alt="Thumbnail"
 						loading="lazy"

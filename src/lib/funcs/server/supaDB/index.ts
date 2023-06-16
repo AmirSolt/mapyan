@@ -5,6 +5,7 @@ import {PUBLIC_SUPABASE_URL} from '$env/static/public';
 import {PRIVATE_SERVICE_ROLE_KEY_SUPABASE} from '$env/static/private';
 import * as keyMaker from "$lib/utils/keyMaker"
 import { error } from '@sveltejs/kit';
+import {SEARCH_COUNT_LIMIT} from "$lib/utils/config"
 
 // to generate types
 // npx supabase gen types typescript --project-id "elznvxsklkeoszuzoqpg" --schema public > ./src/lib/funcs/server/supaDB/types.ts
@@ -24,9 +25,10 @@ export async function getSearch(keyword:string):Promise<Product[] | null>{
     const {data, error:err} = await supabase()
         .from('product')
         .select('brand, image_url, key, cheapest_price, rating, rating_total, title')
-        .textSearch('title', keyword,
+        .textSearch('fts', keyword,
         {type:"websearch",
         config:"english"})
+        .limit(SEARCH_COUNT_LIMIT)
 
 
 
