@@ -34,7 +34,7 @@
 	<!-- ------------Beta----------- -->
 	<div class="card variant-soft-warning p-2">
 		<p>
-			This website is still in <b>Beta</b>. If you do encounter a bug please report it to <b>admin@mapyan.com</b>. Thank you.
+			This is still a <b>Demo</b>. If you do encounter a bug please report it to <b>admin@mapyan.com</b>. Thank you.
 		</p>
 	</div>
 	<Toast position='t' background='variant-filled-error' />

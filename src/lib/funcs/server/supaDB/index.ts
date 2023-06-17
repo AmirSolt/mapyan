@@ -25,7 +25,7 @@ export async function getSearch(keyword:string):Promise<Product[] | null>{
     const {data, error:err} = await supabase()
         .from('product')
         .select('brand, image_url, key, cheapest_price, rating, rating_total, title')
-        .order("rating", { ascending: false, nullsFirst:false })
+        .order("rating_total", { ascending: false, nullsFirst:false })
         .textSearch('fts', keyword,
         {type:"websearch",
         config:"english"})

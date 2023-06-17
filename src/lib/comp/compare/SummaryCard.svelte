@@ -80,13 +80,16 @@
 						>
 							<div class="flex flex-row justify-center items-center gap-1">
 								{#if seller.name}
-									<p class="text-sm">{truncate(seller.name, 8, '..')}</p>
+									<p class="text-sm">{truncate(seller.name, 6, '..')}</p>
 								{/if}
 								{#if seller.price}
 									<p class="text-md">≈{PriceFeatures.symbol}{seller.price}</p>
+								
+								{:else}
+
+								<ExternalLink />
 								{/if}
 							</div>
-                            <ExternalLink />
 						</a>
 					{/if}
 				{/each}

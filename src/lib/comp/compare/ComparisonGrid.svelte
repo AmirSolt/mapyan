@@ -47,6 +47,7 @@
     }
     function overCallback(){
         isStreaming=false
+        console.log(comparisonBody)
     }
     function errorCallback<T>(err: T){
         throw error(400, "Something went wrong!")
@@ -97,7 +98,7 @@
                             <h1>{index+1}.</h1>
                             <ProductAvatar
                                 imageUrl={getProductByKey(key)?.image_url}
-                                size={index===0?'w-20 h-20 sm:w-40 sm:h-40':'w-16 h-16 sm:w-32 sm:h-32'}
+                                size={index===0?'w-24 h-24 sm:w-40 sm:h-40':'w-20 h-20 sm:w-32 sm:h-32'}
                             />
                         </div>
 
