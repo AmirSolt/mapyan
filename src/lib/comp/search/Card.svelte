@@ -44,6 +44,8 @@
 						src={product.image_url}
 						alt="Thumbnail"
 						loading="lazy"
+						width="400px"
+						height="auto"
 					/>
 				</div>
 			</button>
