@@ -3,10 +3,11 @@
 
     import SelectionBar from "$lib/comp/selection/SelectionBar.svelte";
     import Card from "./Card.svelte";
+	import AdCard from './AdCard.svelte';
+    import {addToSelected} from '$lib/utils/stores'
 
 	export let products:Product[] = [];
 
-    import {addToSelected, selectedProducts} from '$lib/utils/stores'
 
 
 
@@ -40,6 +41,9 @@
 	{:else}
 
 		<div class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 grid-rows-3">
+
+			<AdCard />
+
 			{#each products as product}
 				<Card {product} on:add={productCallback} />	
 			{/each}

@@ -18,9 +18,7 @@
 	<meta name="keywords" content="Mapyan, product comparison, AI-powered comparison tables, Dynamic product comparisons, Smart shopping tool, Online shopping assistant, price comparison, Customer reviews analysis, Product feature comparison, Effortless product research,">
 	<link rel="icon" type="image/svg+xml" href="/logo.svg" />
 
-	<!-- Google Adsense -->
-	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8336959220812275"
-	crossorigin="anonymous"></script>
+	
 </svelte:head>
 
 
@@ -40,7 +38,7 @@
 			This is still a <b>Demo</b>. If you do encounter a bug please report it to <b>admin@mapyan.com</b>. Thank you.
 		</p>
 	</div> -->
-	
+
 	<Toast position='t' background='variant-filled-error' />
 	<div class="flex justify-center w-full h-full">
 		<div class="max-w-7xl p-2 md:p-4 w-full h-full">

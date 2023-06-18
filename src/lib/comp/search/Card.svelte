@@ -79,14 +79,14 @@
                 </div>
     
                 <!-- sponsored-link -->
-                <div id="sponsored-link" class="flex flex-col justify-center items-start gap-1">
+                <!-- <div id="sponsored-link" class="flex flex-col justify-center items-start gap-1">
                     {#if product.cheapest_price && typeof product.rating == 'number'}
                         <span class="text-2xl">
                             ≈{PriceFeatures.symbol}{product.cheapest_price}
                         </span>
                     {/if}
 					<SponsoredButton {product} />
-                </div>
+                </div> -->
 
             </div>
 		</div>
