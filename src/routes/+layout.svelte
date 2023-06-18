@@ -18,6 +18,9 @@
 	<meta name="keywords" content="Mapyan, product comparison, AI-powered comparison tables, Dynamic product comparisons, Smart shopping tool, Online shopping assistant, price comparison, Customer reviews analysis, Product feature comparison, Effortless product research,">
 	<link rel="icon" type="image/svg+xml" href="/logo.svg" />
 
+	<!-- Google Adsense -->
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8336959220812275"
+	crossorigin="anonymous"></script>
 </svelte:head>
 
 

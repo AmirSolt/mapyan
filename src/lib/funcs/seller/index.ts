@@ -4,6 +4,7 @@ const SPONSORED_SELLERS = [
     {name:"Amazon", url:"https://www.amazon.com/s", price:null},
 ]
 const DEFAULT_SELLERS = [
+    {name:"Amazon", url:"https://www.amazon.com/s", price:null},
     {name:"Walmart", url:"https://www.walmart.com/search", price:null},
     {name:"Ebay", url:"https://www.ebay.com/sch/i.html", price:null},
 ]
@@ -40,10 +41,10 @@ export function cleanSellers(product:Product, sellers:Seller[]):Seller[]{
     sellers.sort(compareSellers)
     
 
-    // ================SPONSORED Sellers====================
-    SPONSORED_SELLERS.forEach(seller=>{
-        sellers.unshift(seller)
-    })
+    // ================SPONSORED Sellers in summary====================
+    // SPONSORED_SELLERS.forEach(seller=>{
+    //     sellers.unshift(seller)
+    // })
     
     // ================Cut sellers====================
     sellers = sellers.slice(0, MIN_SELLERS)

@@ -7,6 +7,7 @@
     import LoadingAnim from '$lib/comp/general/loading/LoadingAnim.svelte';
     import {comparisonResponseParser} from '$lib/funcs/responseParser/index'
 	import {createComparisonStream} from '$lib/funcs/comparer/index'
+	import {truncate} from "$lib/utils/funcs"
     export let features:string[];
     export let products:Product[];
 
@@ -36,9 +37,7 @@
             return r[0]
         return null
     }
-    function truncate(text: string, size: number, trailing:string="..") {
-		return text.substring(0, size) + trailing;
-	}
+
  
     // ==========================================================
     function newContentCallback(newContent:string){
