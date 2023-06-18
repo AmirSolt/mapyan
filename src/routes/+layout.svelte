@@ -35,11 +35,12 @@
 	</svelte:fragment>
 	
 	<!-- ------------Beta----------- -->
-	<div class="card variant-soft-warning p-2">
+	<!-- <div class="card variant-soft-warning p-2">
 		<p>
 			This is still a <b>Demo</b>. If you do encounter a bug please report it to <b>admin@mapyan.com</b>. Thank you.
 		</p>
-	</div>
+	</div> -->
+	
 	<Toast position='t' background='variant-filled-error' />
 	<div class="flex justify-center w-full h-full">
 		<div class="max-w-7xl p-2 md:p-4 w-full h-full">
